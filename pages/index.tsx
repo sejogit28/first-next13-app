@@ -2,11 +2,11 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
-import { Data } from "./api/hello";
+import { TestResponseData } from "./api/hello";
 import { currentUrl } from "../config";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home(props: { data: Data }) {
+export default function Home(props: { data: TestResponseData }) {
   return (
     <>
       <main className={styles.main}>
@@ -18,12 +18,15 @@ export default function Home(props: { data: Data }) {
 
 export const getServerSideProps = async () => {
   console.log(currentUrl);
-  const serverResponse = await fetch(`${currentUrl}/api/hello`).catch((err) => {
-    console.log(err);
-    return err;
-  });
+  let data: TestResponseData = { name: "" };
+  let serverResponse: Response = new Response();
 
-  const data: Data = await serverResponse.json();
+  try {
+    serverResponse = await fetch(`${currentUrl}/api/hello`);
+    data = await serverResponse.json();
+  } catch (err) {
+    console.log(err);
+  }
 
   return {
     props: {
