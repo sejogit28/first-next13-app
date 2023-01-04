@@ -124,6 +124,7 @@ export default function Home(props: { data: Data }) {
 }
 
 export const getServerSideProps = async () => {
+  console.log(currentUrl);
   const serverResponse = await fetch(`${currentUrl}/api/hello`);
   const data = await serverResponse.json();
 
