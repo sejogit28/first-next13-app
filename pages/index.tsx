@@ -10,7 +10,7 @@ export default function Home(props: { data: TestResponseData }) {
   return (
     <>
       <main className={styles.main}>
-        <h1>Something should be here: {props.data.name}. Test Test</h1>
+        <h1>Something should be here: {props.data.name}. Testss</h1>
       </main>
     </>
   );
