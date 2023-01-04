@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
 import { Data } from "./api/hello";
-
+import { currentUrl } from "../config";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props: { data: Data }) {
@@ -124,7 +124,7 @@ export default function Home(props: { data: Data }) {
 }
 
 export const getServerSideProps = async () => {
-  const serverResponse = await fetch("http://localhost:3000/api/hello");
+  const serverResponse = await fetch(`${currentUrl}/api/hello`);
   const data = await serverResponse.json();
 
   return {
