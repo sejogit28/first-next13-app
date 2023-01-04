@@ -6,7 +6,7 @@ import { Data } from "./api/hello";
 import { currentUrl } from "../config";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home(props: { data: Data }) {
   return (
     <>
       <main className={styles.main}>
@@ -15,3 +15,19 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  console.log(currentUrl);
+  const serverResponse = await fetch(`${currentUrl}/api/hello`).catch((err) => {
+    console.log(err);
+    return err;
+  });
+
+  const data: Data = await serverResponse.json();
+
+  return {
+    props: {
+      data,
+    },
+  };
+};
