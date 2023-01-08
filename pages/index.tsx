@@ -12,8 +12,7 @@ interface WeatherForecast {
   summary: String;
 }
 
-export default function Home(props: { data: WeatherForecast[] }) {
-  console.log(props);
+export default function Home(props: { data: TestResponseData }) {
   return (
     <>
       <Head>
@@ -25,7 +24,7 @@ export default function Home(props: { data: WeatherForecast[] }) {
       <main className={styles.main}>
         <div className={styles.description}>
           <p>
-            {props.data[0].summary}...hey! Get started by editing&nbsp;
+            {props.data.name}...hey! Get started by editing&nbsp;
             <code className={styles.code}>pages/index.tsx</code>
           </p>
         </div>
@@ -37,15 +36,16 @@ export default function Home(props: { data: WeatherForecast[] }) {
 export const getServerSideProps = async () => {
   //const data = await getData();
 
-  const data = await (
-    await fetch(
-      "https://connecttonexttestsol-production.up.railway.app/WeatherForecast"
-    )
-  ).json();
+  const data = await getData();
+  //NOTE: if the call to getData above is not awaited an error will be thrown.
+  ///getData returns a promise if it isnt awaited. Promises aren't serializable
 
-  //Note is fine to call an external api from here using fetch probably
+  //NoteL It's fine to call an external api from here using fetch probably
   ///If that's the case, will need to do more research into the actual purpose of Api Routes...
   ///Seems to be safe to make this call from the client side but not from getServerSideProps
+  ////API routes and getServerSide props both run on the server so this will at best be a double request
+  //With a combination of getServerSide props and API routes is it possible to keep all data requests...
+  //...on the server?
   return {
     props: {
       data,
