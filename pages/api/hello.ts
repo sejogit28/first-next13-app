@@ -7,8 +7,11 @@ export interface TestResponseData {
 }
 
 export async function getData() {
-  let data: TestResponseData = { name: "" };
-  return new Response(JSON.stringify({ name: "This is fun" })).json();
+  // let data: TestResponseData = { name: "" };
+  // return new Response(JSON.stringify({ name: "This is fun" })).json();
+  const data: TestResponseData = { name: "This is fun bro!" };
+  const stringifiedData = JSON.stringify(data);
+  return new Response(stringifiedData).json();
 }
 export default async function handler(
   req: NextApiRequest,

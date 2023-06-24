@@ -37,15 +37,15 @@ export const getServerSideProps = async () => {
   //const data = await getData();
 
   const data = await getData();
-  //NOTE: if the call to getData above is not awaited an error will be thrown.
+  //if the call to getData above is not awaited an error will be thrown.
   ///getData returns a promise if it isnt awaited. Promises aren't serializable
 
-  //NoteL It's fine to call an external api from here using fetch probably
+  //It's fine to call an external api from here using fetch probably
   ///If that's the case, will need to do more research into the actual purpose of Api Routes...
   ///Seems to be safe to make this call from the client side but not from getServerSideProps
   ////API routes and getServerSide props both run on the server so this will at best be a double request
   //With a combination of getServerSide props and API routes is it possible to keep all data requests...
-  //...on the server?
+  ///...on the server?
   return {
     props: {
       data,
